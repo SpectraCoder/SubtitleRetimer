@@ -1,18 +1,22 @@
 ﻿using SubtitlesParser.Classes.Parsers;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace SubtitleRetimer
 {
     class Importer
     {
-        public static async Task LoadTextFile()
+        public static async Task LoadTextFile(TextBlock textBlockLoadingStatus)
         {
             FileOpenPicker openPicker = new FileOpenPicker();
             openPicker.SuggestedStartLocation = PickerLocationId.Desktop;
@@ -44,6 +48,9 @@ namespace SubtitleRetimer
 
                     await Dialogs.ErrorDialog("The file you selected isn't in the right format. Please check if the file is UTF-8.");
                 }
+
+                textBlockLoadingStatus.Foreground = new SolidColorBrush(Colors.Green);
+                textBlockLoadingStatus.Text = "The file has loaded succesfully.";
 
             }
 

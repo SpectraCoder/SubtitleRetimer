@@ -6,13 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace SubtitleRetimer
 {
     class Exporter
     {
-        public static async Task Export()
+        public static async Task Export(TextBlock textBlockExportStatus)
         {
             int index = 0;
             List<string> lines = new List<string>();
@@ -41,6 +43,9 @@ namespace SubtitleRetimer
             }
 
             await SaveTextFile(lines, Parameters.SubtitleFile);
+
+            textBlockExportStatus.Foreground = new SolidColorBrush(Colors.Green);
+            textBlockExportStatus.Text = "The was exported succesfully.";
         }
 
         public static void Add(List<SubtitlesParser.Classes.SubtitleItem> subtitleList, int milliseconds)

@@ -24,38 +24,40 @@ namespace SubtitleRetimer{
 
         private async void ButtonLoadSrt_Click(object sender, RoutedEventArgs e)
         {
-            await Importer.LoadTextFile();            
+            await Importer.LoadTextFile(TextBlockStatus);            
         }
 
         private async void ButtonExport_Click(object sender, RoutedEventArgs e)
         {
             if(Parameters.SubtitleList != null)
             {
-                //List<SubtitlesParser.Classes.SubtitleItem> SubtitleListChanged = new List<SubtitlesParser.Classes.SubtitleItem>();
-                //List<SubtitlesParser.Classes.SubtitleItem> SubtitleListChanged = Parameters.SubtitleList.Select(item => new List<SubtitlesParser.Classes.SubtitleItem>(item.Lines[0])).ToList();
-
-                //SubtitleListChanged = Parameters.Clone(Parameters.SubtitleList);
-                //Parameters.SubtitleList.ConvertAll(new Converter<SubtitlesParser.Classes.SubtitleItem, SubtitlesParser.Classes.SubtitleItem>(ConvertList) );                
-
-                if (ComboBoxMath.SelectedIndex == 0) //add
+                try
                 {
-                    if (ComboBoxTime.SelectedIndex == 0) { Exporter.Add(Parameters.SubtitleList, int.Parse(TextBoxInput.Text)); } //add milliseconds
-                    if (ComboBoxTime.SelectedIndex == 1) { Exporter.Add(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 1000); } //add seconds
-                    if (ComboBoxTime.SelectedIndex == 2) { Exporter.Add(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 60000); } //add minutes
-                    if (ComboBoxTime.SelectedIndex == 3) { Exporter.Add(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 3600000); } //add hours
-                }
+                    if (ComboBoxMath.SelectedIndex == 0) //add
+                    {
+                        if (ComboBoxTime.SelectedIndex == 0) { Exporter.Add(Parameters.SubtitleList, int.Parse(TextBoxInput.Text)); } //add milliseconds
+                        if (ComboBoxTime.SelectedIndex == 1) { Exporter.Add(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 1000); } //add seconds
+                        if (ComboBoxTime.SelectedIndex == 2) { Exporter.Add(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 60000); } //add minutes
+                        if (ComboBoxTime.SelectedIndex == 3) { Exporter.Add(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 3600000); } //add hours
+                    }
 
-                if (ComboBoxMath.SelectedIndex == 1) //subtract
+                    if (ComboBoxMath.SelectedIndex == 1) //subtract
+                    {
+                        if (ComboBoxTime.SelectedIndex == 0) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text)); } //subtract milliseconds
+                        if (ComboBoxTime.SelectedIndex == 1) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 1000); } //subtract seconds
+                        if (ComboBoxTime.SelectedIndex == 2) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 60000); } //subtract minutes
+                        if (ComboBoxTime.SelectedIndex == 3) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 3600000); } //subtract hours
+                    }
+
+                    await Exporter.Export(TextBlockStatus);
+
+                }
+                catch (Exception)
                 {
-                    if (ComboBoxTime.SelectedIndex == 0) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text)); } //subtract milliseconds
-                    if (ComboBoxTime.SelectedIndex == 1) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 1000); } //subtract seconds
-                    if (ComboBoxTime.SelectedIndex == 2) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 60000); } //subtract minutes
-                    if (ComboBoxTime.SelectedIndex == 3) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 3600000); } //subtract hours
-                }
 
-            }
-
-            await Exporter.Export();
+                    await Dialogs.ErrorDialog("Exporing aborted", "The value you entered isn't a numeric value or a whole number. Please try again.");
+                }               
+            }            
         }
        
     }
