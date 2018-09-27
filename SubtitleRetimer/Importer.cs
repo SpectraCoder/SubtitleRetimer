@@ -47,6 +47,7 @@ namespace SubtitleRetimer
                 {
 
                     await Dialogs.ErrorDialog("The file you selected isn't in the right format. Please check if the file is UTF-8.");
+                    return;
                 }
 
                 textBlockLoadingStatus.Foreground = new SolidColorBrush(Colors.Green);
@@ -59,23 +60,13 @@ namespace SubtitleRetimer
         private async static Task SubtitleParser(StorageFile subtitleFile)
         {
             if (Parameters.SubtitleFile != null)
-            {
-                try
-                {
+            {                
                     var subtitleText = await FileIO.ReadTextAsync(subtitleFile);
                     byte[] bytearray = Encoding.UTF8.GetBytes(subtitleText);
                     MemoryStream stream = new MemoryStream(bytearray);
 
                     SrtParser srtparser = new SrtParser();
-                    Parameters.SubtitleList = srtparser.ParseStream(stream, Encoding.UTF8);
-                    //Parameters.SubtitleListChanged = Parameters.SubtitleList = srtparser.ParseStream(stream, Encoding.UTF8);
-
-                }
-                catch (Exception)
-                {
-                    await Dialogs.ErrorDialog("Something went wrong.");
-                }
-                
+                    Parameters.SubtitleList = srtparser.ParseStream(stream, Encoding.UTF8);                
             }
 
             else

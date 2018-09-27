@@ -45,7 +45,7 @@ namespace SubtitleRetimer
             await SaveTextFile(lines, Parameters.SubtitleFile);
 
             textBlockExportStatus.Foreground = new SolidColorBrush(Colors.Green);
-            textBlockExportStatus.Text = "The was exported succesfully.";
+            textBlockExportStatus.Text = "The file was exported succesfully.";
         }
 
         public static void Add(List<SubtitlesParser.Classes.SubtitleItem> subtitleList, int milliseconds)
@@ -79,8 +79,7 @@ namespace SubtitleRetimer
             if (savefile != null)
             {
                 
-                 await FileIO.WriteLinesAsync(savefile, subtitleLines);
-                
+                await FileIO.WriteLinesAsync(savefile, subtitleLines);
                 
 
                 Windows.Storage.Provider.FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(savefile);
