@@ -5,14 +5,20 @@
     xmlns:local="using:SubtitleRetimer"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    mc:Ignorable="d"    
+    Background="{ThemeResource AcrylicBackground}">
+    
+    <!--Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">-->
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
+        <TextBlock Text="Subtitle Retimer" HorizontalAlignment="Center"
+                       Style="{StaticResource CaptionTextBlockStyle}" 
+                       Margin="10,10,0,0"/>
 
         <TextBlock Name="TextBlockStatus" Grid.Row="1" Margin="10,10,10,10"/>
 
@@ -33,7 +39,7 @@
                     Width="100"
                     Content="Load SRT" 
                     HorizontalAlignment="Center" 
-                    Margin="10" 
+                    Margin="10"                        
                     Click="ButtonLoadSrt_Click"/>
 
                 <ComboBox Grid.Column="0" Grid.Row="1"

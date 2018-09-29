@@ -81,7 +81,6 @@ namespace SubtitleRetimer
                 
                 await FileIO.WriteLinesAsync(savefile, subtitleLines);
                 
-
                 Windows.Storage.Provider.FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(savefile);
                 if (status != Windows.Storage.Provider.FileUpdateStatus.Complete)
                 {
