@@ -10,15 +10,15 @@
             <ResourceDictionary.ThemeDictionaries>                
                 <ResourceDictionary x:Key="Dark">
                     <media:AcrylicBrush x:Key="AcrylicBackground" BackgroundSource="HostBackdrop" TintOpacity="0.5" TintColor="#FF000000" FallbackColor="Black" />
-                    <Button x:Key="ThemedButton" Foreground="White"/>
+                    <media:SolidColorBrush x:Key="ColorLight" Color="White"/>
+                    <media:SolidColorBrush x:Key="ColorDark" Color="Black"/>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Light">
-                    <media:AcrylicBrush x:Key="AcrylicBackground" BackgroundSource="HostBackdrop" TintOpacity="0" TintColor="White" FallbackColor="White" />
-                    <Button x:Key="ThemedButton" Foreground="White"/>
+                    <media:AcrylicBrush x:Key="AcrylicBackground" BackgroundSource="HostBackdrop" TintOpacity="0.2" TintColor="White" FallbackColor="White" />
+                    <media:SolidColorBrush x:Key="ColorLight" Color="White"/>
+                    <media:SolidColorBrush x:Key="ColorDark" Color="Black"/>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
     </Application.Resources>
-    
-
 </Application>
