@@ -16,7 +16,7 @@ namespace SubtitleRetimer
 {
     class Importer
     {
-        public static async Task LoadTextFile(TextBlock textBlockLoadingStatus)
+        public static async Task<bool> LoadTextFile()
         {
             FileOpenPicker openPicker = new FileOpenPicker();
             openPicker.SuggestedStartLocation = PickerLocationId.Desktop;
@@ -28,50 +28,56 @@ namespace SubtitleRetimer
             if (Parameters.SubtitleFile == null)
             {
                 await Dialogs.ErrorDialog("No file selected");
-                return;
+                return false;
             }
 
             if (Parameters.SubtitleFile.FileType != ".srt" && Parameters.SubtitleFile.FileType != ".txt")
             {
                 await Dialogs.ErrorDialog("Unable to open: The file wasn't a .srt or .txt file.");
-                return;
+                return false;
             }
 
             else
             {
                 try
-                {                    
-                    await SubtitleParser(Parameters.SubtitleFile);
+                {
+                    bool succeeded = await SubtitleParser(Parameters.SubtitleFile);
+                    if (succeeded)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }                                        
                 }
                 catch (Exception)
                 {
 
                     await Dialogs.ErrorDialog("The file you selected isn't in the right format. Please check if the file is UTF-8.");
-                    return;
+                    return false;
                 }
-
-                textBlockLoadingStatus.Foreground = new SolidColorBrush(Colors.Green);
-                textBlockLoadingStatus.Text = "The file has loaded succesfully.";
 
             }
 
         }
 
-        private async static Task SubtitleParser(StorageFile subtitleFile)
+        private async static Task<bool> SubtitleParser(StorageFile subtitleFile)
         {
             if (Parameters.SubtitleFile != null)
-            {                
-                    var subtitleText = await FileIO.ReadTextAsync(subtitleFile);
-                    byte[] bytearray = Encoding.UTF8.GetBytes(subtitleText);
-                    MemoryStream stream = new MemoryStream(bytearray);
+            {
+                var subtitleText = await FileIO.ReadTextAsync(subtitleFile);
+                byte[] bytearray = Encoding.UTF8.GetBytes(subtitleText);
+                MemoryStream stream = new MemoryStream(bytearray);
 
-                    SrtParser srtparser = new SrtParser();
-                    Parameters.SubtitleList = srtparser.ParseStream(stream, Encoding.UTF8);                
+                SrtParser srtparser = new SrtParser();
+                Parameters.SubtitleList = srtparser.ParseStream(stream, Encoding.UTF8);
+                return true;
             }
 
             else
             {
-                return;
+                return false;
             }
 
         }

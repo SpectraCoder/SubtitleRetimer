@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="4fe22b73-7331-49a9-9b33-e22c1c1e1771" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>SubtitleRetimer</DisplayName>
-    <PublisherDisplayName>baste</PublisherDisplayName>
+    <PublisherDisplayName>Bas Tempelman</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
