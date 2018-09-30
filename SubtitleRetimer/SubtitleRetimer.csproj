@@ -111,6 +111,8 @@
     <None Include="SubtitleRetimer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AppIconBlack.png" />
+    <Content Include="Assets\AppIconWhite.png" />
     <Content Include="Assets\BadgeLogo.scale-100.png" />
     <Content Include="Assets\BadgeLogo.scale-125.png" />
     <Content Include="Assets\BadgeLogo.scale-150.png" />

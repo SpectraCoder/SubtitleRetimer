@@ -17,8 +17,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="10,10,0,0" VerticalAlignment="Top">
-            <Image Source="Assets/Square44x44Logo.altform-unplated_targetsize-32.png" Width="32" Height="32"/>
-            <TextBlock Text="Subtitle Retimer" Foreground="{ThemeResource ColorLight}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            <Image Name="AppIcon" Width="25" Height="25"/>
+            <TextBlock Text="Subtitle Retimer" VerticalAlignment="Center" Margin="5,0,0,0"/>
         </StackPanel>
 
         <TextBlock Name="TextBlockStatus" Grid.Row="1" Margin="10,10,10,10"/>
@@ -40,9 +40,7 @@
                     Width="100"
                     Content="Load SRT" 
                     HorizontalAlignment="Center" 
-                    Margin="10"
-                    Foreground="{ThemeResource ColorLight}"
-                    Background="{ThemeResource ColorDark}"
+                    Margin="10"                    
                     Click="ButtonLoadSrt_Click"/>
 
                 <ComboBox Grid.Column="0" Grid.Row="1"
@@ -62,7 +60,7 @@
                     <x:String>Hours</x:String>
                 </ComboBox>
 
-                <Button Grid.Row="2" Grid.Column="1" Content="Export SRT" HorizontalAlignment="Center" Margin="10" Click="ButtonExport_Click" Width="100" Foreground="{ThemeResource ColorLight}"/>
+                <Button Grid.Row="2" Grid.Column="1" Content="Export SRT" HorizontalAlignment="Center" Margin="10" Click="ButtonExport_Click" Width="100"/>
                 
             </Grid>
         </StackPanel>

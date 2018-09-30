@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace SubtitleRetimer{
@@ -20,7 +21,8 @@ namespace SubtitleRetimer{
     {
         public MainPage()
         {
-            this.InitializeComponent();            
+            this.InitializeComponent();
+            LoadAppIcon(AppIcon);
         }
 
         private async void ButtonLoadSrt_Click(object sender, RoutedEventArgs e)
@@ -88,6 +90,25 @@ namespace SubtitleRetimer{
                 await Dialogs.ErrorDialog("Exporting aborted", "Please load a subtitle file first.");
             }
         }
+
+        public static void LoadAppIcon(Image image)
+        {            
+            bool isLight = Application.Current.RequestedTheme == ApplicationTheme.Light;
+
+            BitmapImage bitmap = new BitmapImage();            
+
+            if (isLight)
+            {
+                bitmap.UriSource = new Uri("ms-appx:///Assets/AppIconBlack.png");
+            }
+            else
+            {
+                bitmap.UriSource = new Uri("ms-appx:///Assets/AppIconWhite.png");
+            }
+
+            image.Source = bitmap;
+            
+        }              
 
     }
 }
