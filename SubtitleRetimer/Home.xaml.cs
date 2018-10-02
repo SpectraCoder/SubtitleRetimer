@@ -23,9 +23,7 @@ namespace SubtitleRetimer
     {
         public Home()
         {
-            this.InitializeComponent();            
-            LoadAppbarIcon(ButtonAbout, "ms-appx:///Assets/IconInfoBlack.png", "ms-appx:///Assets/IconInfoWhite.png");
-
+            this.InitializeComponent(); 
         }
 
         private async void ButtonLoadSrt_Click(object sender, RoutedEventArgs e)
@@ -130,11 +128,6 @@ namespace SubtitleRetimer
 
             button.Icon = bitmap;
 
-        }
-
-        private void ButtonAbout_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            PageArea.Navigate(typeof(Assets.About));
-        }
+        }        
     }
 }
