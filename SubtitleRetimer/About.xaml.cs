@@ -26,5 +26,10 @@ namespace SubtitleRetimer
         {
             this.InitializeComponent();
         }
+
+        private void ButtonBack_Click(object sender, TappedRoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Home));
+        }
     }
 }

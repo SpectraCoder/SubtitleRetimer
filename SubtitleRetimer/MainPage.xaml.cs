@@ -22,8 +22,7 @@ namespace SubtitleRetimer{
         public MainPage()
         {
             this.InitializeComponent();
-            LoadIcon(AppIcon, "ms-appx:///Assets/AppIconBlack.png", "ms-appx:///Assets/AppIconWhite.png");
-            LoadAppbarIcon(ButtonAbout, "ms-appx:///Assets/IconInfoBlack.png", "ms-appx:///Assets/IconInfoWhite.png");
+            LoadIcon(AppIcon, "ms-appx:///Assets/AppIconBlack.png", "ms-appx:///Assets/AppIconWhite.png");            
             PageArea.Navigate(typeof(Home));
         }       
 
@@ -65,10 +64,7 @@ namespace SubtitleRetimer{
 
         }
 
-        private void ButtonAbout_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            PageArea.Navigate(typeof(About));
-        }
+        
 
     }
 }

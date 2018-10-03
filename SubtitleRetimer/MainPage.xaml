@@ -18,10 +18,9 @@
             <Image Name="AppIcon" Width="25" Height="25"/>
             <TextBlock Text="Subtitle Retimer" VerticalAlignment="Center" Margin="5,0,0,0"/>
         </StackPanel>
-        
+
         <Frame Name="PageArea" Grid.Row="1"/>
-        <AppBarButton Name="ButtonAbout" ToolTipService.ToolTip="About this app" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="50" Height="50" Tapped="ButtonAbout_Tapped"/>
-        
+
     </Grid>    
 </Page>
 
