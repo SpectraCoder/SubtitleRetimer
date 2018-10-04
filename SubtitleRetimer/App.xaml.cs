@@ -29,7 +29,7 @@ namespace SubtitleRetimer
         public App()
         {
             this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            this.Suspending += OnSuspending;             
         }
 
         /// <summary>
@@ -70,6 +70,8 @@ namespace SubtitleRetimer
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
+
+                ExtendAcrylicIntoTitleBar();
             }
         }
 
@@ -95,6 +97,14 @@ namespace SubtitleRetimer
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private void ExtendAcrylicIntoTitleBar()
+        {
+            Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            Windows.UI.ViewManagement.ApplicationViewTitleBar titleBar = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Windows.UI.Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Windows.UI.Colors.Transparent;
         }
     }
 }
