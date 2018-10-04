@@ -31,5 +31,10 @@ namespace SubtitleRetimer
         {
             this.Frame.Navigate(typeof(Home));
         }
+
+        public string Version
+        {
+            get { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
+        }
     }
 }

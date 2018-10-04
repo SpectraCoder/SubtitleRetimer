@@ -10,11 +10,15 @@
     <Grid>
         <AppBarButton Icon="Back" ToolTipService.ToolTip="Go back" Tapped="ButtonBack_Click" VerticalAlignment="Top" Width="50" Height="50"/>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
-            <TextBlock Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,0,0,10">About</TextBlock>
-            <TextBlock Width="500" TextWrapping="Wrap" Margin="0,0,0,10">
+            <TextBlock Style="{ThemeResource HeaderTextBlockStyle}">About</TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Version:" Foreground="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
+                <TextBlock Text="{x:Bind Version}" Opacity="50" Margin="10,0,0,0" Foreground="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>                
+            </StackPanel>            
+            <TextBlock MaxWidth="500" LineHeight="25" TextWrapping="WrapWholeWords" Margin="0,0,0,10">
                 Subtitle Retimer was created by Bas Tempelman as a personal project to learn programming.
             </TextBlock>
-            <TextBlock Width="500" TextWrapping="Wrap" >
+            <TextBlock MaxWidth="500" LineHeight="25" TextWrapping="WrapWholeWords">
                Special thanks go to AlexPoint for his work on SubtitleParser.
             </TextBlock>
         </StackPanel>

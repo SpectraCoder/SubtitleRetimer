@@ -11,12 +11,12 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>            
 
             <TextBlock Name="TextBlockStatus" Grid.Row="1" Margin="10,10,10,10"/>
 
-            <StackPanel HorizontalAlignment ="Center" VerticalAlignment="Center">
+            <StackPanel HorizontalAlignment ="Center" VerticalAlignment="Center" Margin="0,50,0,0">
                 <Grid >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
