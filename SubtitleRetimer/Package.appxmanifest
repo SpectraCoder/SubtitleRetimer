@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="4fe22b73-7331-49a9-9b33-e22c1c1e1771" Publisher="CN=baste" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="4fe22b73-7331-49a9-9b33-e22c1c1e1771" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="46177BasTempelman.SubtitleRetimer" Publisher="CN=3E711DC7-1896-44FA-AFA3-A1135B56034D" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="d7fde070-9f49-4341-a2f4-9ac7c07e895c" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>SubtitleRetimer</DisplayName>
+    <DisplayName>Subtitle Retimer</DisplayName>
     <PublisherDisplayName>Bas Tempelman</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -28,7 +28,4 @@
       </uap:VisualElements>
     </Application>
   </Applications>
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
 </Package>

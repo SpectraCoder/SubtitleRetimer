@@ -21,6 +21,7 @@
             <TextBlock MaxWidth="500" LineHeight="25" TextWrapping="WrapWholeWords">
                Special thanks go to AlexPoint for his work on SubtitleParser.
             </TextBlock>
+            <HyperlinkButton Content="Privacy Policy" NavigateUri="https://spectracoder.github.io/Privacy/SubtitleRetimer.html" />
         </StackPanel>
     </Grid>
 </Page>
