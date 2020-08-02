@@ -22,14 +22,6 @@ namespace SubtitleRetimer
             await errorDialog.ShowAsync();
         }
 
-        public static Task ErrorDialog(string errorMessage) => ErrorDialog("Error", errorMessage);
-
-        //public static void StatusMessage(TextBlock textBlock, Color textColor, string message)
-        //{
-        //    textBlock.Foreground = new SolidColorBrush(textColor);
-        //    textBlock.Text = message;
-        //}
-
-        //public static void StatusMessage(TextBlock textBlock, string message) => StatusMessage(textBlock, Colors.White, message);
+        public static Task ErrorDialog(string errorMessage) => ErrorDialog("Error", errorMessage);        
     }
 }
