@@ -32,7 +32,6 @@ namespace SubtitleRetimer
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
     }
 
     public class StatusViewModel

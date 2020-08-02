@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SubtitlesParser.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace SubtitleRetimer
     {       
         public static string FileName = "";
         public static StatusViewModel ViewModel = new StatusViewModel();
-        public static List<SubtitlesParser.Classes.SubtitleItem> SubtitleList { get; set; } = new List<SubtitlesParser.Classes.SubtitleItem>();        
+        public static List<SubtitleItem> SubtitleList = new List<SubtitleItem>();        
     }
 }

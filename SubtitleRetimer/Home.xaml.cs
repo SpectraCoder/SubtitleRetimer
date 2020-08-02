@@ -22,22 +22,17 @@ namespace SubtitleRetimer
         public Home()
         {
             this.InitializeComponent();
-            //DataContext = Parameters.ViewModel;
-            //this.DataContextChanged += (s, e) => { Parameters.ViewModel = DataContext as StatusViewModel; };
-
         }        
          
         private async void ButtonLoadSrt_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                Parameters.SubtitleList.Clear();                
-                await Importer.LoadTextFile();
-                //Dialogs.StatusMessage(TextBlockStatus, Colors.Green, $"\"{Parameters.FileName}\" was loaded succesfully.");                
+                await Importer.LoadTextFile();                             
             }
             catch (Exception)
             {
-                Dialogs.StatusMessage(TextBlockStatus, Colors.Red, "No file loaded");
+                Parameters.ViewModel.Status.StatusMessage = "No file loaded.";                
             }  
 
         }        
@@ -65,19 +60,7 @@ namespace SubtitleRetimer
                         if (ComboBoxTime.SelectedIndex == 3) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 3600000); } //subtract hours
                     }
 
-                    await Exporter.Export(Parameters.FileName);
-                    //Path.GetFileNameWithoutExtension(storagefile.Name)
-                    //if (succeeded)
-                    //{
-                    //    Parameters.SubtitleList.Clear();
-                    //    Dialogs.StatusMessage(TextBlockStatus, Colors.Green, "The file was exported successfully.");
-                    //}
-                    //else
-                    //{
-                    //    Parameters.SubtitleList.Clear();
-                    //    Dialogs.StatusMessage(TextBlockStatus, Colors.Red, "File saving canceled. Please import the file again before exporting.");
-                    //}
-
+                    await Exporter.Export(Parameters.FileName);  
 
                 }
                 catch (Exception)

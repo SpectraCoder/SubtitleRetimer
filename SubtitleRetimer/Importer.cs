@@ -32,7 +32,7 @@ namespace SubtitleRetimer
             return file;
         }
         public static async Task LoadTextFile()
-        {            
+        {             
             StorageFile file = await LoadFile();
 
             if(file != null) 

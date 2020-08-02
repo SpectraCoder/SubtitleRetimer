@@ -56,7 +56,7 @@
                 </Grid>
             </StackPanel>
 
-        <TextBlock x:Name="TextBlockStatus" Text="{x:Bind local:Parameters.ViewModel.Status.StatusMessage, Mode=TwoWay}" Grid.Row="1" Margin="10,10,10,10"/>       
+        <TextBlock x:Name="TextBlockStatus" Text="{x:Bind local:Parameters.ViewModel.Status.StatusMessage, Mode=OneWay}" Grid.Row="1" Margin="10,10,10,10"/>       
             
         <AppBarButton Name="ButtonAbout" ToolTipService.ToolTip="About this app" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="40" Height="40" Tapped="ButtonAbout_Tapped">
             <AppBarButton.Icon>
