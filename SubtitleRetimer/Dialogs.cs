@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace SubtitleRetimer
 {
@@ -25,7 +26,7 @@ namespace SubtitleRetimer
 
         public static void StatusMessage(TextBlock textBlock, Color textColor, string message)
         {
-            textBlock.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(textColor);
+            textBlock.Foreground = new SolidColorBrush(textColor);
             textBlock.Text = message;
         }
 

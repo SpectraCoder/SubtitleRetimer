@@ -14,9 +14,9 @@ namespace SubtitleRetimer
 {
     class Exporter
     {        
-        public static async Task<bool> Export()
+        public static async Task Export(string fileName)
         {
-            int index = 0;
+            uint index = 0;
             List<string> lines = new List<string>();
 
             foreach (var item in Parameters.SubtitleList)
@@ -53,21 +53,9 @@ namespace SubtitleRetimer
                     lines.Add(lineThree);
                     lines.Add(lineFive);
                 }
-
-
-
             }
 
-            bool succeeded = await SaveTextFile(lines, Parameters.SubtitleFile);
-
-            if (succeeded)
-            {                
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            await SaveTextFile(lines, fileName);            
         }
 
         public static void Add(List<SubtitlesParser.Classes.SubtitleItem> subtitleList, int milliseconds)
@@ -88,40 +76,30 @@ namespace SubtitleRetimer
             }
         }
 
-        private static async Task<bool> SaveTextFile(List<string> subtitleLines, StorageFile storagefile)
+        private static async Task SaveTextFile(List<string> subtitleLines, string fileName)
         {
             FileSavePicker savePicker = new FileSavePicker();
             savePicker.SuggestedStartLocation = PickerLocationId.Desktop;
-            savePicker.SuggestedFileName = (Path.GetFileNameWithoutExtension(storagefile.Name) + " retimed");
+            savePicker.SuggestedFileName = fileName + " retimed";
             savePicker.FileTypeChoices.Add("SRT file", new List<string>() { ".srt" });
             savePicker.FileTypeChoices.Add("Text file", new List<string>() { ".txt" });
 
             StorageFile savefile = await savePicker.PickSaveFileAsync();
 
             if (savefile != null)
-            {
-                
+            {                
                 await FileIO.WriteLinesAsync(savefile, subtitleLines);
                 
                 Windows.Storage.Provider.FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(savefile);
                 
                 if (status != Windows.Storage.Provider.FileUpdateStatus.Complete)
                 {
-                    Windows.UI.Popups.MessageDialog errorBox = new Windows.UI.Popups.MessageDialog("File" + savefile.Name + " couldn't be saved.");
-                    await errorBox.ShowAsync();
-                    return false;
+                    await Dialogs.ErrorDialog($"File {savefile.Name} couldn't be saved.");                                   
                 }
-
-                return true;
-            }
-
-            else
-            {
-                Windows.UI.Popups.MessageDialog errorBox = new Windows.UI.Popups.MessageDialog("File saving was canceled.");
-                await errorBox.ShowAsync();
-                return false;
-            }
-
+               
+                Parameters.ViewModel.Status.StatusMessage = $"{fileName} was exported successfully";
+                
+            }   
 
         }
     }

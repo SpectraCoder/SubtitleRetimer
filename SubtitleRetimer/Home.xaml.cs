@@ -15,32 +15,32 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace SubtitleRetimer
 {
     public sealed partial class Home : Page
-    {
+    {        
         public Home()
         {
             this.InitializeComponent();
-            LoadAppbarIcon(ButtonAbout, "ms-appx:///Assets/IconInfoBlack.png", "ms-appx:///Assets/IconInfoWhite.png");
-        }
+            //DataContext = Parameters.ViewModel;
+            //this.DataContextChanged += (s, e) => { Parameters.ViewModel = DataContext as StatusViewModel; };
 
+        }        
+         
         private async void ButtonLoadSrt_Click(object sender, RoutedEventArgs e)
         {
-            bool succeeded = await Importer.LoadTextFile();
-
-            if (succeeded)
+            try
             {
-                Dialogs.StatusMessage(TextBlockStatus, Colors.Green, "The file has loaded succesfully.");
+                Parameters.SubtitleList.Clear();                
+                await Importer.LoadTextFile();
+                //Dialogs.StatusMessage(TextBlockStatus, Colors.Green, $"\"{Parameters.FileName}\" was loaded succesfully.");                
             }
-            else
+            catch (Exception)
             {
                 Dialogs.StatusMessage(TextBlockStatus, Colors.Red, "No file loaded");
-            }
+            }  
 
-        }
+        }        
 
         private async void ButtonExport_Click(object sender, RoutedEventArgs e)
         {
@@ -65,18 +65,18 @@ namespace SubtitleRetimer
                         if (ComboBoxTime.SelectedIndex == 3) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 3600000); } //subtract hours
                     }
 
-                    bool succeeded = await Exporter.Export();
-
-                    if (succeeded)
-                    {
-                        Parameters.SubtitleList.Clear();
-                        Dialogs.StatusMessage(TextBlockStatus, Colors.Green, "The file was exported successfully.");
-                    }
-                    else
-                    {
-                        Parameters.SubtitleList.Clear();
-                        Dialogs.StatusMessage(TextBlockStatus, Colors.Red, "File saving canceled. Please import the file again before exporting.");
-                    }
+                    await Exporter.Export(Parameters.FileName);
+                    //Path.GetFileNameWithoutExtension(storagefile.Name)
+                    //if (succeeded)
+                    //{
+                    //    Parameters.SubtitleList.Clear();
+                    //    Dialogs.StatusMessage(TextBlockStatus, Colors.Green, "The file was exported successfully.");
+                    //}
+                    //else
+                    //{
+                    //    Parameters.SubtitleList.Clear();
+                    //    Dialogs.StatusMessage(TextBlockStatus, Colors.Red, "File saving canceled. Please import the file again before exporting.");
+                    //}
 
 
                 }
@@ -91,46 +91,7 @@ namespace SubtitleRetimer
             {
                 await Dialogs.ErrorDialog("Exporting aborted", "Please load a subtitle file first.");
             }
-        }
-
-        public static void LoadIcon(Image image, string darkIconUri, string lightIconUri)
-        {
-            bool isLight = Application.Current.RequestedTheme == ApplicationTheme.Light;
-
-            BitmapImage bitmap = new BitmapImage();
-
-            if (isLight)
-            {
-                bitmap.UriSource = new Uri(darkIconUri);
-            }
-            else
-            {
-                bitmap.UriSource = new Uri(lightIconUri);
-            }
-
-            image.Source = bitmap;
-
-        }
-
-        public static void LoadAppbarIcon(AppBarButton button, string darkIconUri, string lightIconUri)
-        {
-            bool isLight = Application.Current.RequestedTheme == ApplicationTheme.Light;
-
-            BitmapIcon bitmap = new BitmapIcon();
-
-            if (isLight)
-            {
-                bitmap.UriSource = new Uri(darkIconUri);
-            }
-            else
-            {
-                bitmap.UriSource = new Uri(lightIconUri);
-            }
-
-            button.Icon = bitmap;
-
-        }
-
+        }       
         private void ButtonAbout_Tapped(object sender, TappedRoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(About));
