@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource AcrylicBackground}">
 
     <Grid>
         <AppBarButton Icon="Back" ToolTipService.ToolTip="Go back" Tapped="ButtonBack_Click" VerticalAlignment="Top" Width="50" Height="50"/>
@@ -22,6 +22,15 @@
                Special thanks go to AlexPoint for his work on SubtitleParser.
             </TextBlock>
             <HyperlinkButton Content="Privacy Policy" NavigateUri="https://spectracoder.github.io/Privacy/SubtitleRetimer.html" />
+
+            <TextBlock x:Uid="NewInThisVersion" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,50,0,0">New in this version</TextBlock>
+
+            <TextBlock Text="1.0.1.0" Foreground="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
+
+            <TextBlock MaxWidth="500" LineHeight="25" TextWrapping="WrapWholeWords" Margin="0,0,0,0">
+                • Added support for subtitles with more than 2 lines.<LineBreak/>• Bug fixes and stability improvements.                    
+            </TextBlock>
+            
         </StackPanel>
     </Grid>
 </Page>

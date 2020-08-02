@@ -9,14 +9,15 @@ using Windows.Storage.Pickers;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Shapes;
 
 namespace SubtitleRetimer
 {
     class Exporter
-    {        
-        public static async Task<bool> Export()
+    {
+        public static async Task Export(string fileName)
         {
-            int index = 0;
+            uint index = 0;
             List<string> lines = new List<string>();
 
             foreach (var item in Parameters.SubtitleList)
@@ -24,50 +25,22 @@ namespace SubtitleRetimer
                 index++;
                 TimeSpan startTime = TimeSpan.FromMilliseconds(item.StartTime);
                 TimeSpan endTime = TimeSpan.FromMilliseconds(item.EndTime);
+                
+                string lineOne = index.ToString();
+                string lineTwo = string.Format("{0:D2}:{1:D2}:{2:D2},{3:D3}", startTime.Hours, startTime.Minutes, startTime.Seconds, startTime.Milliseconds) + " --> " + string.Format("{0:D2}:{1:D2}:{2:D2},{3:D3}", endTime.Hours, endTime.Minutes, endTime.Seconds, endTime.Milliseconds);
+                lines.Add(lineOne);
+                lines.Add(lineTwo);
 
-
-                if (item.Lines.Count > 1) //if there are two lines
+                foreach (var line in item.Lines)
                 {
-                    string lineOne = index.ToString();
-                    string lineTwo = string.Format("{0:D2}:{1:D2}:{2:D2},{3:D3}", startTime.Hours, startTime.Minutes, startTime.Seconds, startTime.Milliseconds) + " --> " + string.Format("{0:D2}:{1:D2}:{2:D2},{3:D3}", endTime.Hours, endTime.Minutes, endTime.Seconds, endTime.Milliseconds);
-                    string lineThree = item.Lines[0];
-                    string lineFour = item.Lines[1];
-                    string lineFive = string.Empty;
-
-                    lines.Add(lineOne);
-                    lines.Add(lineTwo);
-                    lines.Add(lineThree);
-                    lines.Add(lineFour);
-                    lines.Add(lineFive);
+                    lines.Add(line);
                 }
-
-                if (item.Lines.Count == 1) //if there is only one line
-                {
-                    string lineOne = index.ToString();
-                    string lineTwo = string.Format("{0:D2}:{1:D2}:{2:D2},{3:D3}", startTime.Hours, startTime.Minutes, startTime.Seconds, startTime.Milliseconds) + " --> " + string.Format("{0:D2}:{1:D2}:{2:D2},{3:D3}", endTime.Hours, endTime.Minutes, endTime.Seconds, endTime.Milliseconds);
-                    string lineThree = item.Lines[0];
-                    string lineFive = string.Empty;
-
-                    lines.Add(lineOne);
-                    lines.Add(lineTwo);
-                    lines.Add(lineThree);
-                    lines.Add(lineFive);
-                }
-
-
-
+                    
+                string lastLine = string.Empty;
+                lines.Add(lastLine);               
             }
 
-            bool succeeded = await SaveTextFile(lines, Parameters.SubtitleFile);
-
-            if (succeeded)
-            {                
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            await SaveTextFile(lines, fileName);
         }
 
         public static void Add(List<SubtitlesParser.Classes.SubtitleItem> subtitleList, int milliseconds)
@@ -88,40 +61,30 @@ namespace SubtitleRetimer
             }
         }
 
-        private static async Task<bool> SaveTextFile(List<string> subtitleLines, StorageFile storagefile)
+        private static async Task SaveTextFile(List<string> subtitleLines, string fileName)
         {
             FileSavePicker savePicker = new FileSavePicker();
             savePicker.SuggestedStartLocation = PickerLocationId.Desktop;
-            savePicker.SuggestedFileName = (Path.GetFileNameWithoutExtension(storagefile.Name) + " retimed");
+            savePicker.SuggestedFileName = fileName + " retimed";
             savePicker.FileTypeChoices.Add("SRT file", new List<string>() { ".srt" });
             savePicker.FileTypeChoices.Add("Text file", new List<string>() { ".txt" });
 
             StorageFile savefile = await savePicker.PickSaveFileAsync();
 
             if (savefile != null)
-            {
-                
+            {                
                 await FileIO.WriteLinesAsync(savefile, subtitleLines);
                 
                 Windows.Storage.Provider.FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(savefile);
                 
                 if (status != Windows.Storage.Provider.FileUpdateStatus.Complete)
                 {
-                    Windows.UI.Popups.MessageDialog errorBox = new Windows.UI.Popups.MessageDialog("File" + savefile.Name + " couldn't be saved.");
-                    await errorBox.ShowAsync();
-                    return false;
+                    await Dialogs.ErrorDialog($"File {savefile.Name} couldn't be saved.");                                   
                 }
-
-                return true;
-            }
-
-            else
-            {
-                Windows.UI.Popups.MessageDialog errorBox = new Windows.UI.Popups.MessageDialog("File saving was canceled.");
-                await errorBox.ShowAsync();
-                return false;
-            }
-
+               
+                Parameters.ViewModel.Status.StatusMessage = $"{fileName} was exported successfully";
+                
+            }   
 
         }
     }

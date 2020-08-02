@@ -44,27 +44,5 @@ namespace SubtitleRetimer{
             image.Source = bitmap;
             
         }
-
-        public static void LoadAppbarIcon(AppBarButton button, string darkIconUri, string lightIconUri)
-        {
-            bool isLight = Application.Current.RequestedTheme == ApplicationTheme.Light;
-
-            BitmapIcon bitmap = new BitmapIcon();
-
-            if (isLight)
-            {
-                bitmap.UriSource = new Uri(darkIconUri);
-            }
-            else
-            {
-                bitmap.UriSource = new Uri(lightIconUri);
-            }
-
-            button.Icon = bitmap;
-
-        }
-
-        
-
     }
 }
