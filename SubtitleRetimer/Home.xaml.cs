@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -28,14 +30,17 @@ namespace SubtitleRetimer
         {
             try
             {
-                await Importer.LoadTextFile();                             
+                StorageFile file = await Importer.LoadFile();
+                if(file != null)
+                {
+                    await Importer.LoadTextFile(file);
+                }
             }
             catch (Exception)
             {
-                Parameters.ViewModel.Status.StatusMessage = "No file loaded.";                
-            }  
-
-        }        
+                Parameters.ViewModel.Status.StatusMessage = "No file loaded.";
+            }
+        }
 
         private async void ButtonExport_Click(object sender, RoutedEventArgs e)
         {
@@ -78,6 +83,46 @@ namespace SubtitleRetimer
         private void ButtonAbout_Tapped(object sender, TappedRoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(About));
+        }
+
+        private void _DragOver(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+            e.DragUIOverride.Caption = "Drop it here!";
+
+        }
+
+        private async void _Drop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                if (e.DataView.Contains(Windows.ApplicationModel.DataTransfer.StandardDataFormats.StorageItems))
+                {
+                    var droppedItems = await e.DataView.GetStorageItemsAsync();
+                    if (droppedItems.Count == 1)
+                    {
+                        var storageFile = droppedItems[0] as StorageFile;
+
+                        if (storageFile.FileType == ".srt")
+                        {
+                            await Importer.LoadTextFile(storageFile);
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+                    }
+                    else
+                    {
+                        await Dialogs.ErrorDialog("Hold on!", "Only one file at a time, please.");
+                    }
+                }
+            }
+            catch
+            {
+                await Dialogs.ErrorDialog("This file is not supported");
+            }
+
         }
     }
 }
