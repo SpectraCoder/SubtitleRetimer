@@ -25,6 +25,12 @@
 
             <TextBlock x:Uid="NewInThisVersion" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,50,0,0">New in this version</TextBlock>
 
+            <TextBlock Text="1.0.2.0" Foreground="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
+
+            <TextBlock MaxWidth="500" LineHeight="25" TextWrapping="WrapWholeWords" Margin="0,0,0,0">
+                • Added drag and drop support.<LineBreak/>• Exporting the same file more than once now works as expected.
+            </TextBlock>
+
             <TextBlock Text="1.0.1.0" Foreground="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
 
             <TextBlock MaxWidth="500" LineHeight="25" TextWrapping="WrapWholeWords" Margin="0,0,0,0">
