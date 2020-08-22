@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SubtitlesParser.Classes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,12 +16,12 @@ namespace SubtitleRetimer
 {
     class Exporter
     {
-        public static async Task Export(string fileName)
+        public static async Task Export(string fileName, List<SubtitleItem> subtitleList)
         {
             uint index = 0;
             List<string> lines = new List<string>();
 
-            foreach (var item in Parameters.SubtitleList)
+            foreach (var item in subtitleList)
             {
                 index++;
                 TimeSpan startTime = TimeSpan.FromMilliseconds(item.StartTime);
@@ -43,7 +44,7 @@ namespace SubtitleRetimer
             await SaveTextFile(lines, fileName);
         }
 
-        public static void Add(List<SubtitlesParser.Classes.SubtitleItem> subtitleList, int milliseconds)
+        public static void Add(List<SubtitleItem> subtitleList, int milliseconds)
         {
             foreach (var item in subtitleList)
             {
@@ -52,7 +53,7 @@ namespace SubtitleRetimer
             }
         }
 
-        public static void Subtract(List<SubtitlesParser.Classes.SubtitleItem> subtitleList, int milliseconds)
+        public static void Subtract(List<SubtitleItem> subtitleList, int milliseconds)
         {
             foreach (var item in subtitleList)
             {

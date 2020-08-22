@@ -9,12 +9,12 @@
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>                
                 <ResourceDictionary x:Key="Dark">
-                    <media:AcrylicBrush x:Key="AcrylicBackground" BackgroundSource="HostBackdrop" TintOpacity="0.5" TintColor="#FF000000" FallbackColor="Black" />
+                    <media:AcrylicBrush x:Key="AcrylicBackground" BackgroundSource="HostBackdrop" TintOpacity="0.7" TintColor="Black" FallbackColor="Black" />
                     <media:SolidColorBrush x:Key="ColorLight" Color="White"/>
                     <media:SolidColorBrush x:Key="ColorDark" Color="Black"/>                    
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Light">
-                    <media:AcrylicBrush x:Key="AcrylicBackground" BackgroundSource="HostBackdrop" TintOpacity="0.5" TintColor="White" FallbackColor="White" />
+                    <media:AcrylicBrush x:Key="AcrylicBackground" BackgroundSource="HostBackdrop" TintOpacity="0.7" TintColor="White" FallbackColor="White" />
                     <media:SolidColorBrush x:Key="ColorLight" Color="White"/>
                     <media:SolidColorBrush x:Key="ColorDark" Color="Black"/>
                 </ResourceDictionary>

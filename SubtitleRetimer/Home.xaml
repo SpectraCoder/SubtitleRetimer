@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource AcrylicBackground}">
-   
-    <Grid>
+
+    <Grid Background="{ThemeResource AcrylicBackground}" AllowDrop="True" DragOver="_DragOver" Drop="_Drop">   
         <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>

@@ -19,7 +19,7 @@ namespace SubtitleRetimer
 {
     class Importer
     {
-        private static async Task<StorageFile> LoadFile()
+        public static async Task<StorageFile> LoadFile()
         {            
             FileOpenPicker openPicker = new FileOpenPicker();
             openPicker.SuggestedStartLocation = PickerLocationId.Desktop;
@@ -31,13 +31,11 @@ namespace SubtitleRetimer
            
             return file;
         }
-        public static async Task LoadTextFile()
-        {             
-            StorageFile file = await LoadFile();
-
-            if(file != null) 
+        public static async Task LoadTextFile(StorageFile storageFile)
+        {  
+            if(storageFile != null) 
             {
-                if (file.FileType != ".srt" && file.FileType != ".txt")
+                if (storageFile.FileType != ".srt" && storageFile.FileType != ".txt")
                 {
                     await Dialogs.ErrorDialog("Unable to open: The file wasn't a .srt or .txt file.");                    
                 }
@@ -45,9 +43,9 @@ namespace SubtitleRetimer
                 {
                     try
                     {
-                        await SubtitleParser(file);
-                        Parameters.FileName = Path.GetFileNameWithoutExtension(file.Name);
-                        Parameters.ViewModel.Status.StatusMessage = $"{file.Name} is loaded";                        
+                        await SubtitleParser(storageFile);
+                        Parameters.FileName = Path.GetFileNameWithoutExtension(storageFile.Name);
+                        Parameters.ViewModel.Status.StatusMessage = $"{storageFile.Name} is loaded";                        
                     }
                     catch (Exception)
                     {
