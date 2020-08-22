@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SubtitlesParser.Classes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -20,7 +22,8 @@ using Windows.UI.Xaml.Navigation;
 namespace SubtitleRetimer
 {
     public sealed partial class Home : Page
-    {        
+    {
+        public static List<SubtitleItem> SubtitleListChanged = new List<SubtitleItem>();
         public Home()
         {
             this.InitializeComponent();
@@ -48,24 +51,25 @@ namespace SubtitleRetimer
             {
                 try
                 {
+                    List<SubtitleItem> subtitleListChanged = CopyList(Parameters.SubtitleList);
 
                     if (ComboBoxMath.SelectedIndex == 0) //add
                     {
-                        if (ComboBoxTime.SelectedIndex == 0) { Exporter.Add(Parameters.SubtitleList, int.Parse(TextBoxInput.Text)); } //add milliseconds
-                        if (ComboBoxTime.SelectedIndex == 1) { Exporter.Add(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 1000); } //add seconds
-                        if (ComboBoxTime.SelectedIndex == 2) { Exporter.Add(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 60000); } //add minutes
-                        if (ComboBoxTime.SelectedIndex == 3) { Exporter.Add(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 3600000); } //add hours
+                        if (ComboBoxTime.SelectedIndex == 0) { Exporter.Add(subtitleListChanged, int.Parse(TextBoxInput.Text)); } //add milliseconds
+                        if (ComboBoxTime.SelectedIndex == 1) { Exporter.Add(subtitleListChanged, int.Parse(TextBoxInput.Text) * 1000); } //add seconds
+                        if (ComboBoxTime.SelectedIndex == 2) { Exporter.Add(subtitleListChanged, int.Parse(TextBoxInput.Text) * 60000); } //add minutes
+                        if (ComboBoxTime.SelectedIndex == 3) { Exporter.Add(subtitleListChanged, int.Parse(TextBoxInput.Text) * 3600000); } //add hours
                     }
 
                     if (ComboBoxMath.SelectedIndex == 1) //subtract
                     {
-                        if (ComboBoxTime.SelectedIndex == 0) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text)); } //subtract milliseconds
-                        if (ComboBoxTime.SelectedIndex == 1) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 1000); } //subtract seconds
-                        if (ComboBoxTime.SelectedIndex == 2) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 60000); } //subtract minutes
-                        if (ComboBoxTime.SelectedIndex == 3) { Exporter.Subtract(Parameters.SubtitleList, int.Parse(TextBoxInput.Text) * 3600000); } //subtract hours
+                        if (ComboBoxTime.SelectedIndex == 0) { Exporter.Subtract(subtitleListChanged, int.Parse(TextBoxInput.Text)); } //subtract milliseconds
+                        if (ComboBoxTime.SelectedIndex == 1) { Exporter.Subtract(subtitleListChanged, int.Parse(TextBoxInput.Text) * 1000); } //subtract seconds
+                        if (ComboBoxTime.SelectedIndex == 2) { Exporter.Subtract(subtitleListChanged, int.Parse(TextBoxInput.Text) * 60000); } //subtract minutes
+                        if (ComboBoxTime.SelectedIndex == 3) { Exporter.Subtract(subtitleListChanged, int.Parse(TextBoxInput.Text) * 3600000); } //subtract hours
                     }
 
-                    await Exporter.Export(Parameters.FileName);  
+                    await Exporter.Export(Parameters.FileName, subtitleListChanged);  
 
                 }
                 catch (Exception)
@@ -124,5 +128,12 @@ namespace SubtitleRetimer
             }
 
         }
-    }
+
+        private static List<SubtitleItem> CopyList(List<SubtitleItem> list)
+        {
+            List<SubtitleItem> CopiedList = (from item in list select new SubtitleItem {StartTime = item.StartTime, EndTime = item.EndTime, Lines = item.Lines}).ToList();
+
+            return CopiedList;            
+        }
+    }    
 }

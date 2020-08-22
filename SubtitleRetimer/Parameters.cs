@@ -13,6 +13,7 @@ namespace SubtitleRetimer
     {       
         public static string FileName = "";
         public static StatusViewModel ViewModel = new StatusViewModel();
-        public static List<SubtitleItem> SubtitleList = new List<SubtitleItem>();        
+        public static List<SubtitleItem> SubtitleList = new List<SubtitleItem>();
+        //public static List<SubtitleItem> SubtitleListChanged = new List<SubtitleItem>();
     }
 }
